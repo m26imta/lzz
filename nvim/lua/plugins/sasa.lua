@@ -1,0 +1,143 @@
+return {
+  -- add gruvbox
+  { "ellisonleao/gruvbox.nvim" },
+  { "ayu-theme/ayu-vim" },
+
+  -- Configure LazyVim to load gruvbox
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "ayu",
+    },
+  },
+  -- bufferline
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      {
+        "moll/vim-bbye",
+        keys = {
+          { "Q", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = { "n" }, noremap = true, silent = true },
+        },
+      },
+    },
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, {
+        options = {
+          indicator = { style = "underline", icon = "▎" },
+          buffer_close_icon = "",
+          modified_icon = "●",
+          close_icon = "",
+        },
+      })
+    end,
+  },
+  -- Neotree
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, {
+        window = {
+          width = 30,
+          mappings = {
+            -- Navigation with HJKL
+            -- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Tips#navigation-with-hjkl
+            ["h"] = function(state)
+              local node = state.tree:get_node()
+              if node.type == "directory" and node:is_expanded() then
+                require("neo-tree.sources.filesystem").toggle_directory(state, node)
+              else
+                require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+              end
+            end,
+            ["l"] = function(state)
+              local node = state.tree:get_node()
+              if node.type == "directory" then
+                if not node:is_expanded() then
+                  require("neo-tree.sources.filesystem").toggle_directory(state, node)
+                elseif node:has_children() then
+                  require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+                end
+              end
+            end,
+            -- Open file without losing sidebar focus
+            -- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Tips#open-file-without-losing-sidebar-focus
+            ["<tab>"] = function(state)
+              local node = state.tree:get_node()
+              if require("neo-tree.utils").is_expandable(node) then
+                state.commands["toggle_node"](state)
+              else
+                state.commands["open"](state)
+                vim.cmd("Neotree reveal")
+              end
+            end,
+          },
+        },
+      })
+    end,
+  },
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      -- add a keymap to browse plugin files
+      -- stylua: ignore
+      {
+        "<leader>fp",
+        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        desc = "Find Plugin File",
+      },
+    },
+    -- change some options
+    opts = function(_, opts)
+      local actions = require("telescope.actions")
+      return vim.tbl_deep_extend("force", opts, {
+        defaults = {
+          layout_strategy = "horizontal",
+          layout_config = { prompt_position = "top" },
+          sorting_strategy = "ascending",
+          winblend = 0,
+          mappings = {
+            i = {
+              ["<C-c>"] = actions.close,
+            },
+            n = {
+              ["<esc>"] = actions.close,
+              ["<C-c>"] = actions.close,
+              ["q"] = actions.close,
+            },
+          },
+        },
+      })
+    end,
+  },
+  -- add telescope-fzf-native
+  {
+    "telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      config = function()
+        require("telescope").load_extension("fzf")
+      end,
+    },
+  },
+  -- LSP keymaps
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      -- change <c-k> -> <c-m><c-k>
+      keys[#keys + 1] = { "<c-k>", false, mode = "i" }
+      keys[#keys + 1] = {
+        "<c-m><c-k>",
+        vim.lsp.buf.signature_help,
+        mode = { "n", "i" },
+        desc = "Signature Help",
+        has =
+        "signatureHelp"
+      }
+    end,
+  },
+}
