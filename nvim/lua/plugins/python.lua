@@ -4,6 +4,7 @@ return {
   -- ipynb molten
   {
     "benlubas/molten-nvim",
+    enabled = false,
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
     -- dependencies = { "3rd/image.nvim" },
     build = ":UpdateRemotePlugins",
@@ -12,7 +13,7 @@ return {
       -- vim.g.molten_image_provider = "image.nvim"
       vim.g.molten_image_provider = "none"
       vim.g.molten_output_win_max_height = 20
-      vim.g.python3_host_prog = 'python3'
+      vim.g.python3_host_prog = "python3"
 
       vim.cmd([[
       :autocmd Filetype python :MoltenInit python3
@@ -20,11 +21,18 @@ return {
 
       vim.keymap.set("n", "<leader>mip", ":MoltenInit python3<cr>", { desc = "MoltenInit python3" })
       vim.keymap.set("n", "<leader>mr", ":MoltenEvaluateLine<cr>")
-      vim.keymap.set("v", "<leader>mr",
+      vim.keymap.set(
+        "v",
+        "<leader>mr",
         ":lua vim.fn.MoltenEvaluateRange('python3', vim.fn.getpos(\"'<\")[2], vim.fn.getpos(\"'>\")[2])<cr>gv",
-        { desc = "Molten run block of code" })
-      vim.keymap.set("v", "<leader>mvr", ":<C-u>MoltenEvaluateVisual<CR>gv",
-        { desc = "execute visual selection", silent = true })
+        { desc = "Molten run block of code" }
+      )
+      vim.keymap.set(
+        "v",
+        "<leader>mvr",
+        ":<C-u>MoltenEvaluateVisual<CR>gv",
+        { desc = "execute visual selection", silent = true }
+      )
     end,
   },
 
@@ -33,8 +41,18 @@ return {
     "GCBallesteros/NotebookNavigator.nvim",
     ft = "python",
     keys = {
-      { "]h",        function() require("notebook-navigator").move_cell "d" end },
-      { "[h",        function() require("notebook-navigator").move_cell "u" end },
+      {
+        "]h",
+        function()
+          require("notebook-navigator").move_cell("d")
+        end,
+      },
+      {
+        "[h",
+        function()
+          require("notebook-navigator").move_cell("u")
+        end,
+      },
       { "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
       { "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
     },
@@ -47,7 +65,7 @@ return {
       "anuvyklack/hydra.nvim",
     },
     config = function()
-      local nn = require "notebook-navigator"
+      local nn = require("notebook-navigator")
       nn.setup({ activate_hydra_keys = "<leader>h" })
     end,
   },
@@ -55,11 +73,9 @@ return {
     "GCBallesteros/jupytext.nvim",
     -- event = "VeryLazy",
     config = function()
-      require("jupytext").setup(
-        {
-          style = "hydrogen",
-        }
-      )
+      require("jupytext").setup({
+        style = "hydrogen",
+      })
     end,
   },
   {
@@ -70,7 +86,7 @@ return {
     config = function()
       local iron = require("iron.core")
       local view = require("iron.view")
-      iron.setup {
+      iron.setup({
         config = {
           -- https://github.com/Vigemus/iron.nvim?tab=readme-ov-file#repl-windows
           -- repl_open_cmd = view.split.vertical.botright(60),
@@ -85,7 +101,7 @@ return {
           clear = "<leader>cl",
         },
         ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
-      }
+      })
     end,
   },
   {
@@ -93,7 +109,7 @@ return {
     -- event = "VeryLazy",
     dependencies = { "GCBallesteros/NotebookNavigator.nvim" },
     opts = function()
-      local nn = require "notebook-navigator"
+      local nn = require("notebook-navigator")
 
       local opts = { highlighters = { cells = nn.minihipatterns_spec } }
       return opts
@@ -104,7 +120,7 @@ return {
     -- event = "VeryLazy",
     dependencies = { "GCBallesteros/NotebookNavigator.nvim" },
     opts = function()
-      local nn = require "notebook-navigator"
+      local nn = require("notebook-navigator")
 
       -- https://github.com/GCBallesteros/NotebookNavigator.nvim?tab=readme-ov-file#yankingdeleting-cells
       -- vah to select the full cell in visual mode.

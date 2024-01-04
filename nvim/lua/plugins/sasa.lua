@@ -7,7 +7,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "ayu",
+      colorscheme = "gruvbox",
     },
   },
   -- bufferline
@@ -58,6 +58,7 @@ return {
                   require("neo-tree.sources.filesystem").toggle_directory(state, node)
                 elseif node:has_children() then
                   require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+                elseif node:is_file() then
                 end
               end
             end,
@@ -135,8 +136,7 @@ return {
         vim.lsp.buf.signature_help,
         mode = { "n", "i" },
         desc = "Signature Help",
-        has =
-        "signatureHelp"
+        has = "signatureHelp",
       }
     end,
   },
