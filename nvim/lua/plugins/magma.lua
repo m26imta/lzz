@@ -1,5 +1,6 @@
 return {
   "dccsillag/magma-nvim",
+  enabled = false,
   build = ":UpdateRemotePlugins",
   init = function()
     function MagmaInitPython()
