@@ -1,6 +1,6 @@
 -- Disable netrw
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
 
 local nvimtree_config = function()
   require("nvim-tree").setup({
@@ -61,6 +61,7 @@ end
 return {
   {
     "nvim-tree/nvim-tree.lua",
+    event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
     keys = {
       { "<leader>1", "<cmd>NvimTreeToggle<cr>", silent = true },

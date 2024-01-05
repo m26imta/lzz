@@ -48,9 +48,9 @@ return {
         :command MoltenInitFSharp lua MoltenInitFSharp()
       ]])
 
-      vim.cmd([[
-      :autocmd Filetype python :MoltenInit python
-      ]])
+      -- vim.cmd([[
+      -- :autocmd Filetype python :MoltenInit python
+      -- ]])
 
       vim.keymap.set(
         "v",

@@ -1,13 +1,14 @@
 return {
   -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-  { "ayu-theme/ayu-vim" },
+  -- { "ellisonleao/gruvbox.nvim" },
+  -- { "ayu-theme/ayu-vim" },
+  { "EdenEast/nightfox.nvim" },
 
-  -- Configure LazyVim to load gruvbox
+  -- Configure LazyVim to load colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "carbonfox",
     },
   },
   -- bufferline
@@ -15,12 +16,6 @@ return {
     "akinsho/bufferline.nvim",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
-      {
-        "moll/vim-bbye",
-        keys = {
-          { "Q", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = { "n" }, noremap = true, silent = true },
-        },
-      },
     },
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, {
@@ -32,6 +27,12 @@ return {
         },
       })
     end,
+  },
+  {
+    "moll/vim-bbye",
+    keys = {
+      { "Q", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = { "n" }, noremap = true, silent = true },
+    },
   },
   -- Neotree
   {
