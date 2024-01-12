@@ -8,6 +8,16 @@ if !has('nvim')
   " write as sudo
   "cmap w!! w !sudo tee > /dev/null %
   command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+  " Netrw
+  " https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
+  let g:netrw_keepdir = 0
+  let g:netrw_winsize = 30
+  hi! link netrwMarkFile Search
+  nnoremap <leader>da :Lexplore %:p:h<CR>
+  nnoremap <leader>dd :Lexplore<CR>
+  nnoremap <leader>1 :Lexplore<CR>
+
 endif
 if has('win32')
   set ff=dos
@@ -48,6 +58,9 @@ nnoremap - <C-x>
 nnoremap = <C-a>
 nnoremap <silent> <C-q><C-s> :write<CR>
 nnoremap <silent> <C-q><C-x> :q!<CR>
+" nnoremap <silent> <leader>w :w<CR>
+" nnoremap <silent> <leader>x :bd!<CR>
+"nnoremap <silent> <leader>q :q!<CR>
 nnoremap <leader>oo :e $MYVIMRC<CR>
 nnoremap <leader>ll :so $MYVIMRC<CR>
 nnoremap <ESC> :nohl<CR>
@@ -59,9 +72,8 @@ noremap <C-PageUp> :bp<CR>
 noremap <C-PageDown> :bn<CR>
 " nnoremap <S-Tab> :b#<CR>
 nnoremap <M-`> :b#<CR>
-nnoremap <leader>bb :ls<CR>:b<Space>
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-
+" nnoremap <leader>bb :ls<CR>:b<Space>
+" nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Move around text in InsertMode & CommandMode
 noremap! <C-h> <LEFT>
