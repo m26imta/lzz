@@ -28,3 +28,23 @@ if vim.g.neovide then
   vim.g.neovide_cursor_trail_size = 0.8 -- 0.7
   -- vim.g.neovide_cursor_antialiasing = false  -- Disabling may fix some cursor visual issues.
 end
+
+-- python file
+vim.cmd([[
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+]])
+
+-- web
+vim.cmd([[
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+]])
