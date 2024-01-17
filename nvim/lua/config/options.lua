@@ -16,35 +16,24 @@ elseif vim.fn.filereadable(config_vimrc) == 1 then
   print("source " .. config_vimrc)
 end
 
--- Neovide
-if vim.g.neovide then
-  local cursor_vfx_mode = { "railgun", "torpedo", "pixiedust", "sonicboom", "ripple", "wireframe" }
-  vim.g.neovide_cursor_vfx_mode = cursor_vfx_mode[6]
-  vim.o.guifont = "JetBrainsMono Nerd Font:h11"
-  vim.g.neovide_transparency = 0.95
-  -- vim.g.neovide_fullscreen = true  -- windowed fullscreen mode
-  vim.cmd([[ nnoremap <C-A-m> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR> ]])
-  vim.g.neovide_cursor_animation_length = 0.08 -- 0.06
-  vim.g.neovide_cursor_trail_size = 0.8 -- 0.7
-  -- vim.g.neovide_cursor_antialiasing = false  -- Disabling may fix some cursor visual issues.
-end
-
 -- python file
 vim.cmd([[
 au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+    \ :set
+    \ tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ textwidth=79
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
 ]])
 
 -- web
 vim.cmd([[
 au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+    \ :set
+    \ tabstop=2
+    \ softtabstop=2
+    \ shiftwidth=2
 ]])

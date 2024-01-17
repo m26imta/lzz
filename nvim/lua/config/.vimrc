@@ -1,99 +1,77 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" .vimrc
+"" vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if !has('nvim')
-  " Change Your Vim Cursor from a Block to Line in Insert Mode
-  let &t_SI = "\e[6 q"
-  let &t_EI = "\e[2 q"
-  " write as sudo
-  "cmap w!! w !sudo tee > /dev/null %
-  command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+let mapleader = " "
+let maplocalleader = "\\"
 
-  " Netrw
-  " https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
-  let g:netrw_keepdir = 0
-  let g:netrw_winsize = 30
-  hi! link netrwMarkFile Search
-  nnoremap <leader>da :Lexplore %:p:h<CR>
-  nnoremap <leader>dd :Lexplore<CR>
-  nnoremap <leader>1 :Lexplore<CR>
-
-endif
-if has('win32')
-  set ff=dos
-endif
-
-"" color industry
-" set timeoutlen=400
-" set clipboard=unnamed,unnamedplus
-" set mouse=a number norelativenumber cursorline
-" set ts=2 sw=2 sts=2 autoindent smartindent expandtab smarttab
-" set ignorecase smartcase incsearch hlsearch noshowmatch
-" set nobackup writebackup swapfile undofile
-" set iskeyword+=- backspace=indent,eol,start
-" set wrap linebreak showbreak=↪ whichwrap+=<,>,[,],h,l
-" set scrolloff=0 sidescrolloff=0
+"" Options
+set timeoutlen=300
+set clipboard=unnamed,unnamedplus
+set mouse=a number norelativenumber cursorline
+set ts=2 sw=2 sts=2
+set autoindent smartindent expandtab smarttab
+set ignorecase smartcase incsearch hlsearch noshowmatch
+set nobackup writebackup swapfile undofile confirm
+set iskeyword+=- backspace=indent,eol,start
+set wrap linebreak showbreak=↪ whichwrap+=<,>,[,],h,l
+set scrolloff=4 sidescrolloff=8
 set nolist listchars=tab:→\ ,nbsp:␣,trail:•,space:⋅,extends:▶,precedes:◀,eol:↴
-"" set enc=utf-8 fenc=utf-8
 " set shortmess+=c
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.git/*
 
-"" ToogleWrap & ToogleListchars
-nnoremap <F7> :set wrap!<CR>
-nnoremap <F8> :set list!<CR>
-
-let mapleader = " "
-let localmapleader = "\\"
+"" Keymaps
 nnoremap ; :
-"inoremap jk <ESC>
-"nmap <S-h> <Nop>
-"nmap <S-l> <Nop>
-"nmap <S-j> <Nop>
-"nmap K <Nop>
-"nmap <C-s> <Nop>
-"nmap <C-e> <Nop>
-nmap <C-m> <Nop>
-imap <C-m> <Nop>
-nnoremap - <C-x>
-nnoremap = <C-a>
-nnoremap <silent> <C-q><C-s> :write<CR>
-nnoremap <silent> <C-q><C-x> :q!<CR>
-" nnoremap <silent> <leader>w :w<CR>
-" nnoremap <silent> <leader>x :bd!<CR>
-"nnoremap <silent> <leader>q :q!<CR>
-nnoremap <leader>oo :e $MYVIMRC<CR>
-nnoremap <leader>ll :so $MYVIMRC<CR>
-nnoremap <ESC> :nohl<CR>
+inoremap jk <ESC>
+nnoremap <silent> <ESC> :nohl<CR>
+nnoremap <C-x> :q!<CR>
 
-" Buffer
+"" Toggle wrap, listchars & relativenumber
+map <F5> :set relativenumber!<CR>
+map <F7> :set wrap!<CR>
+map <F8> :set list!<CR>
+
+" Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
+" using completions).
+noremap  <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <Esc>:update<CR>gi
+
+"" Buffer
 nnoremap <S-h> :bp<CR>
 nnoremap <S-l> :bn<CR>
 noremap <C-PageUp> :bp<CR>
 noremap <C-PageDown> :bn<CR>
+nnoremap ~ :b#<CR>
+nnoremap <S-x> :bd!<CR>
+" nnoremap <M-`> :b#<CR>
 " nnoremap <S-Tab> :b#<CR>
-nnoremap <M-`> :b#<CR>
 " nnoremap <leader>bb :ls<CR>:b<Space>
 " nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Move around text in InsertMode & CommandMode
+"" Move around text in InsertMode & CommandMode
 noremap! <C-h> <LEFT>
 noremap! <C-l> <RIGHT>
 noremap! <C-j> <DOWN>
 noremap! <C-k> <UP>
 
-" Better move through wrap line
+"" Better move through wrap line
 noremap j g<DOWN>
 noremap k g<UP>
 inoremap <C-j> <C-o>g<DOWN>
 inoremap <C-k> <C-o>g<UP>
 
-" Move around windows
+"" Move around windows
 nnoremap <C-h> <C-w><LEFT>
 nnoremap <C-l> <C-w><RIGHT>
 nnoremap <C-j> <C-w><DOWN>
 nnoremap <C-k> <C-w><UP>
+" CTRL-Tab is Next window
+noremap <C-Tab> <C-W>w
+inoremap <C-Tab> <C-O><C-w>w
+cnoremap <C-Tab> <C-C><C-w>w
+onoremap <C-Tab> <C-C><C-w>w
 
-" Indent
+"" Indent
 nnoremap < v<
 nnoremap > v>
 vnoremap < <gv
@@ -101,45 +79,95 @@ vnoremap > >gv
 vnoremap <S-h> <gv
 vnoremap <S-l> >gv
 
-" Move lines up & down
-" nnoremap J mz:m+<cr>`z
-" nnoremap K mz:m-2<cr>`z
-" vnoremap J :m'>+<cr>`<my`>mzgv`yo`z
-" vnoremap K :m'<-2<cr>`>my`<mzgv`yo`z
-"nnoremap <S-j> :m .+1<cr>==
-"nnoremap <S-k> :m .-2<cr>==
+"" Move lines up & down
 vnoremap <S-j> :m '>+1<cr>gv=gv
 vnoremap <S-k> :m '<-2<cr>gv=gv
 
-" yank & paste
+"" Ctrl+A to select all
+nnoremap <C-a> maggVG
+
+"" Increment & Decrement number
+nnoremap - <C-x>
+nnoremap = <C-a>
+
+"" Do not yank on x & p
+nnoremap x "_x
+vnoremap p "_dP
+
+"" Quick paste using + register
 inoremap <C-r><C-r> <C-\><C-o>"+P
 cnoremap <C-r><C-r> <C-r>+
-" noremap  <C-e><C-p> "+P
-" inoremap <C-e><C-p> <C-\><C-o>"+P
-nnoremap <C-m><C-a> ggVG
-"vnoremap p "_dP
-nnoremap x "_x
-vnoremap al :<C-U>normal 0v$h<CR>
-omap al :normal val<CR>
-vnoremap il :<C-U>normal ^vg_<CR>
-omap il :normal vil<CR>
 
-" quick yank & paste use register `1`
-vnoremap <M-1><M-y> "1y|                                        " yank into register `1`
-nnoremap <M-1><M-p> "1p|                                        " put after cursor
-noremap  <M-1><M-1> "1P|                                        " put before cursor
-inoremap <M-1><M-1> <C-\><C-o>"1P
-cnoremap <M-1><M-1> <C-r>1
-
-
-" Search & Replace
+"" Search & Replace
+nnoremap <C-f> <Nop>
 vnoremap <C-f> y<ESC>/<C-r>"<CR>
+vnoremap <C-r> <Nop>
 vnoremap <C-r><C-e> "hy:%s/<C-r>h//gc<LEFT><LEFT><LEFT>
 
-" Status line
+"" Status line
 if &statusline==""
   set showmode
   set laststatus=2
-  " set statusline=\ %{&paste==1?'[PASTE\ MODE]\ \ ':''}\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c\ 
-  set statusline=\ %{&paste==1?'[PASTE\ MODE]\ \ ':''}\ %t\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ \|\ %l:%c\ 
+  set statusline=\ %{&paste==1?'[PASTE\ MODE]\ \ ':''}\ %t\ %w\ \|\ CWD:\ %r%{getcwd()}%h\ \ \|\ %l:%c\ 
 endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Netrw
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
+let g:netrw_keepdir = 0
+let g:netrw_winsize = 30
+nnoremap <leader>dd :cd %:p:h<CR>:Lexplore<CR>:pwd<CR>
+nnoremap <leader>de :Lexplore<CR>
+nnoremap <leader>1 :Lexplore<CR>
+
+function! NetrwMapping()
+  nmap <buffer> H u
+  nmap <buffer> h -^
+  nmap <buffer> l <CR>
+
+  nmap <buffer> . gh
+  nmap <buffer> P <C-w>z
+  nmap <buffer> <C-l> <C-w>l
+
+  nmap <buffer> L <CR>:Lexplore<CR>
+  nmap <buffer> <Leader>dd :Lexplore<CR>
+endfunction 
+
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" VIM
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !has("nvim")
+  "" Change Your Vim Cursor from a Block to Line in Insert Mode
+  let &t_SI = "\e[6 q"
+  let &t_EI = "\e[2 q"
+
+  "" write as sudo
+  "cmap w!! w !sudo tee > /dev/null %
+  command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Neovide
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists("g:neovide")
+  let cursor_vfx_mode = ["railgun", "torpedo", "pixiedust", "sonicboom", "ripple", "wireframe"]
+  let g:neovide_cursor_vfx_mode = cursor_vfx_mode[5]
+  set guifont=JetBrainsMono\ Nerd\ Font:h11
+  let g:neovide_transparency = 0.95
+  " let g:neovide_fullscreen = v:true  "" windowed fullscreen mode
+  nnoremap <F11> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR>
+  let g:neovide_cursor_animation_length = 0.08 "" default = 0.06
+  let g:neovide_cursor_trail_size = 0.8 "" default = 0.7
+  " let g:neovide_cursor_antialiasing = v:false  "" Disabling may fix some cursor visual issues.
+endif
+
+
