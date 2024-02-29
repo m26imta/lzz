@@ -1,5 +1,5 @@
 return {
-  -- add gruvbox
+  -- add colorscheme
   -- { "ellisonleao/gruvbox.nvim" },
   -- { "ayu-theme/ayu-vim" },
   { "EdenEast/nightfox.nvim" },
@@ -11,6 +11,7 @@ return {
       colorscheme = "carbonfox",
     },
   },
+
   -- bufferline
   {
     "akinsho/bufferline.nvim",
@@ -28,12 +29,7 @@ return {
       })
     end,
   },
-  {
-    "moll/vim-bbye",
-    keys = {
-      { "Q", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = { "n" }, noremap = true, silent = true },
-    },
-  },
+
   -- Neotree
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -79,6 +75,7 @@ return {
       })
     end,
   },
+
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -125,20 +122,45 @@ return {
       end,
     },
   },
+
+  -- Remove some keymaps that conflict with my .vimrc
   -- LSP keymaps
   {
     "neovim/nvim-lspconfig",
     init = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change <c-k> -> <c-m><c-k>
+      -- change <c-k> -> <c-f><c-k>
       keys[#keys + 1] = { "<c-k>", false, mode = "i" }
       keys[#keys + 1] = {
-        "<c-m><c-k>",
+        "<c-f><c-k>",
         vim.lsp.buf.signature_help,
         mode = { "n", "i" },
         desc = "Signature Help",
         has = "signatureHelp",
       }
+    end,
+  },
+  {
+    "folke/noice.nvim",
+    -- remove <c-f>, <c-b>
+    keys = function(_, keys)
+      local keys_removal = { "<c-f>", "<c-b>" }
+      local keys_index_removal = {}
+      -- find the "<c-f>", "<c-b>" in keys table
+      for index, value in ipairs(keys) do
+        for _, v in ipairs(keys_removal) do
+          if string.lower(value[1]) == v then
+            table.insert(keys_index_removal, index)
+          end
+        end
+      end
+      -- sort
+      table.sort(keys_index_removal)
+      -- remove the higher index first
+      for i = #keys_index_removal, 1, -1 do
+        table.remove(keys, keys_index_removal[i])
+      end
+      return keys
     end,
   },
 }

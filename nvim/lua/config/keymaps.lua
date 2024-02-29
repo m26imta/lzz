@@ -9,9 +9,18 @@ local Util = require("lazyvim.util")
 -- use `vim.keymap.set` instead
 local map = Util.safe_keymap_set
 
-map("n", "<M-,>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<M-.>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("i", "<M-,>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<M-.>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<M-,>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<M-.>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+if false then
+  map("n", "<A-,>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+  map("n", "<A-.>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+  map("i", "<A-,>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+  map("i", "<A-.>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+  map("v", "<A-,>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+  map("v", "<A-.>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+
+  map("n", "<A-h>", "v<", { desc = "Indent left" })
+  map("n", "<A-l>", "v>", { desc = "Indent right" })
+  map("i", "<A-h>", "<ESC>v<gi", { desc = "Indent left" })
+  map("i", "<A-l>", "<ESC>v>gi", { desc = "Indent right" })
+  map("v", "<A-h>", "<gv", { deisc = "Indent left" })
+  map("v", "<A-l>", ">gv", { desc = "Indent right" })
+end

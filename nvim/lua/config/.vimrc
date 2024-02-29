@@ -24,11 +24,14 @@ nnoremap ; :
 inoremap jk <ESC>
 nnoremap <silent> <ESC> :nohl<CR>
 nnoremap <C-x> :q!<CR>
+map <c-f> <Nop>
+map <c-b> <Nop>
+map <s-j> <Nop>
 
 "" Toggle wrap, listchars & relativenumber
 map <F5> :set relativenumber!<CR>
-map <F7> :set wrap!<CR>
-map <F8> :set list!<CR>
+map <F7> :set wrap!<CR>:set wrap?<CR>
+map <F8> :set list!<CR>:set list?<CR>
 
 " Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
 " using completions).
@@ -82,6 +85,27 @@ vnoremap <S-l> >gv
 "" Move lines up & down
 vnoremap <S-j> :m '>+1<cr>gv=gv
 vnoremap <S-k> :m '<-2<cr>gv=gv
+
+nnoremap <A-j> :m .+1<cr>==
+nnoremap <A-k> :m .-2<cr>==
+inoremap <A-j> <ESC>:m .+1<cr>==gi
+inoremap <A-k> <ESC>:m .-2<cr>==gi
+vnoremap <A-j> :m '>+1<cr>gv=gv
+vnoremap <A-k> :m '<-2<cr>gv=gv
+
+nnoremap <A-,> :m .+1<cr>==
+nnoremap <A-.> :m .-2<cr>==
+inoremap <A-,> <ESC>:m .+1<cr>==gi
+inoremap <A-.> <ESC>:m .-2<cr>==gi 
+vnoremap <A-,> :m '>+1<cr>gv=gv
+vnoremap <A-.> :m '<-2<cr>gv=gv
+
+nnoremap <A-h> v<
+nnoremap <A-l> v>
+inoremap <A-h> <ESC>v<gi
+inoremap <A-l> <ESC>v>gi
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
 
 "" Ctrl+A to select all
 nnoremap <C-a> maggVG
@@ -150,10 +174,11 @@ if !has("nvim")
   let &t_EI = "\e[2 q"
 
   "" write as sudo
-  "cmap w!! w !sudo tee > /dev/null %
-  command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+  if has("unix")
+    "cmap w!! w !sudo tee > /dev/null %
+    command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+  endif
 endif
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Neovide
