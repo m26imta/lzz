@@ -21,6 +21,6 @@ if false then
   map("n", "<A-l>", "v>", { desc = "Indent right" })
   map("i", "<A-h>", "<ESC>v<gi", { desc = "Indent left" })
   map("i", "<A-l>", "<ESC>v>gi", { desc = "Indent right" })
-  map("v", "<A-h>", "<gv", { deisc = "Indent left" })
+  map("v", "<A-h>", "<gv", { desc = "Indent left" })
   map("v", "<A-l>", ">gv", { desc = "Indent right" })
 end
