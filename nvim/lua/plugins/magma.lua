@@ -1,34 +1,35 @@
-return {
-  "dccsillag/magma-nvim",
-  enabled = false,
-  build = ":UpdateRemotePlugins",
-  init = function()
-    function MagmaInitPython()
-      vim.cmd([[
+return true and {}
+  or {
+    "dccsillag/magma-nvim",
+    enabled = false,
+    build = ":UpdateRemotePlugins",
+    init = function()
+      function MagmaInitPython()
+        vim.cmd([[
       :MagmaInit python3
       :MagmaEvaluateArgument a=5
       ]])
-    end
+      end
 
-    function MagmaInitCSharp()
-      vim.cmd([[
+      function MagmaInitCSharp()
+        vim.cmd([[
       :MagmaInit .net-csharp
       :MagmaEvaluateArgument Microsoft.DotNet.Interactive.Formatting.Formatter.SetPreferredMimeTypesFor(typeof(System.Object),"text/plain");
       ]])
-    end
+      end
 
-    function MagmaInitFSharp()
-      vim.cmd([[
+      function MagmaInitFSharp()
+        vim.cmd([[
       :MagmaInit .net-fsharp
       :MagmaEvaluateArgument Microsoft.DotNet.Interactive.Formatting.Formatter.SetPreferredMimeTypesFor(typeof<System.Object>,"text/plain")
       ]])
-    end
+      end
 
-    vim.g.magma_automatically_open_output = false
-    vim.g.magma_image_provider = "none"
-    vim.g.python3_host_prog = "python3"
+      vim.g.magma_automatically_open_output = false
+      vim.g.magma_image_provider = "none"
+      vim.g.python3_host_prog = "python3"
 
-    vim.cmd([[
+      vim.cmd([[
       nnoremap <silent><expr> <LocalLeader>r  :MagmaEvaluateOperator<CR>
       nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
       xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
@@ -40,5 +41,5 @@ return {
       :command MagmaInitCSharp lua MagmaInitCSharp()
       :command MagmaInitFSharp lua MagmaInitFSharp()
     ]])
-  end,
-}
+    end,
+  }
