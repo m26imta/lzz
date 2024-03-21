@@ -1,4 +1,4 @@
-local theme = "nightfox/carbonfox"
+local theme = "moonfly"
 -- "name / varient" OR just "name"
 -- "nightfox/carbonfox"  OR just "nightfox"
 

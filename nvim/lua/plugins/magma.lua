@@ -1,5 +1,5 @@
-return true and {}
-  or {
+return false
+  and {
     "dccsillag/magma-nvim",
     enabled = false,
     build = ":UpdateRemotePlugins",
@@ -42,4 +42,4 @@ return true and {}
       :command MagmaInitFSharp lua MagmaInitFSharp()
     ]])
     end,
-  }
+  } or {}

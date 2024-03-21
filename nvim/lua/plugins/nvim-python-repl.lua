@@ -1,5 +1,5 @@
-return true and {}
-  or {
+return false
+  and {
     {
       "geg2102/nvim-python-repl",
       -- enabled = false,
@@ -33,4 +33,4 @@ return true and {}
         end, { desc = "Create REPL in vertical or horizontal split" })
       end,
     },
-  }
+  } or {}

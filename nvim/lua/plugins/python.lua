@@ -1,5 +1,5 @@
-return true and {}
-  or {
+return false
+  and {
     { import = "lazyvim.plugins.extras.lang.python" },
 
     -- ipynb molten
@@ -160,4 +160,4 @@ return true and {}
         return opts
       end,
     },
-  }
+  } or {}
