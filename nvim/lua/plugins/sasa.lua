@@ -154,7 +154,7 @@ return {
           end
         end
       end
-      -- sort
+      -- sort index
       table.sort(keys_index_removal)
       -- remove the higher index first
       for i = #keys_index_removal, 1, -1 do
