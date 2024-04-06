@@ -111,17 +111,6 @@ return {
       })
     end,
   },
-  -- add telescope-fzf-native
-  {
-    "telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    },
-  },
 
   -- Remove some keymaps that conflict with my .vimrc
   -- LSP keymaps
