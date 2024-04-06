@@ -1,4 +1,10 @@
-local config = function()
+local M = {
+  "akinsho/toggleterm.nvim",
+  version = "*",
+  event = "VeryLazy",
+}
+
+M.config = function()
   local opts = {
     size = 15,
     open_mapping = [[<C-\>]],
@@ -27,11 +33,4 @@ local config = function()
   end, { noremap = true, silent = true })
 end
 
-return {
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    event = "VeryLazy",
-    config = config,
-  },
-}
+return M

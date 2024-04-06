@@ -1,3 +1,5 @@
+-- stylua: ignore start
+
 local theme = "moonfly"
 -- "name / varient" OR just "name"
 -- "nightfox/carbonfox"  OR just "nightfox"
@@ -8,6 +10,7 @@ local islazy = true  -- themes is lazy, so use :Lazy load foo.nvim to invoke and
 local default_theme_opts = {
   lazy = islazy,
 }
+
 local builtin_themes = {"blue", "darkblue", "default", "delek", "desert", "elflord",
   "evening", "habamax", "industry", "koehler", "lunaperche", "morning", "murphy",
   "pablo", "peachpuff", "quiet", "ron", "shine", "slate", "torte", "zellner"}
@@ -15,9 +18,9 @@ local builtin_themes = {"blue", "darkblue", "default", "delek", "desert", "elflo
 local themes = {
   { "joshdick/onedark.vim",           name = "onedark",          varients = { "onedark" } },
   { "lunarvim/darkplus.nvim",         name = "darkplus",         varients = { "darkplus" } },
+  { "bluz71/vim-moonfly-colors",      name = "moonfly",          varients = { "moonfly" } },
   { "bluz71/vim-nightfly-guicolors",  name = "nightfly",         varients = { "nightfly" } },
   { "sainnhe/everforest",             name = "everforest",       varients = { "everforest" } },
-  { "bluz71/vim-moonfly-colors",      name = "moonfly",          varients = { "moonfly" } },
   { "morhetz/gruvbox",                name = "gruvbox",          varients = { "gruvbox" } },
   { "sainnhe/gruvbox-material",       name = "gruvbox-material", varients = { "gruvbox-material" } },
   { "Mofiqul/dracula.nvim",           name = "dracula",          varients = { "dracula", "dracula-soft" } },
@@ -66,15 +69,18 @@ local function set_theme()
   end
 
   -- Configure LazyVim to load colorscheme
-  table.insert(M, {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = color_cmd,
-    },
-  })
+  local lazyvim_ok, _ = pcall(require, "lazyvim")
+  if lazyvim_ok then
+    table.insert(M, {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = color_cmd,
+      },
+    })
+  end
 
   return M
 end
 
 return set_theme()
-
+-- stylua: ignore end

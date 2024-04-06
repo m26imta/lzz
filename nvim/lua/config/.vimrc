@@ -40,12 +40,24 @@ vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <Esc>:update<CR>gi
 
 "" Buffer
+" delete buffer
+nnoremap <S-x> :bd!<CR>
+" nnoremap <S-x> :exe 'if exists("Bd") \| Bd \| else \| bd \| endif'
+function Do_del_buffer()
+  if exists(":Bdelete")>0
+    :Bdelete!
+  else
+    :bdel!
+  endif
+endfunction
+nnoremap <silent> <S-x> :call Do_del_buffer()<CR>
+nnoremap <silent> <S-x> :execute exists(":Bdelete")>0?"Bdelete!":"bdel!"<CR>
+"
 nnoremap <S-h> :bp<CR>
 nnoremap <S-l> :bn<CR>
 noremap <C-PageUp> :bp<CR>
 noremap <C-PageDown> :bn<CR>
 nnoremap ~ :b#<CR>
-nnoremap <S-x> :bd!<CR>
 " nnoremap <M-`> :b#<CR>
 " nnoremap <S-Tab> :b#<CR>
 " nnoremap <leader>bb :ls<CR>:b<Space>
@@ -194,5 +206,4 @@ if exists("g:neovide")
   let g:neovide_cursor_trail_size = 0.8 "" default = 0.7
   " let g:neovide_cursor_antialiasing = v:false  "" Disabling may fix some cursor visual issues.
 endif
-
 
