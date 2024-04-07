@@ -3,37 +3,20 @@
 -- Add any additional options here
 
 -- Load vimrc
-local home_vimrc = vim.fn.expand("$HOME/.vimrc")
-local config_vimrc = vim.fn.expand(vim.fn.stdpath("config") .. "/lua/config/.vimrc")
-if vim.fn.has("win32") == 1 then
-  home_vimrc = vim.fn.expand("$HOME/_vimrc")
-end
-if vim.fn.filereadable(home_vimrc) == 1 then
-  vim.cmd("source " .. home_vimrc)
-  print("source " .. home_vimrc)
-elseif vim.fn.filereadable(config_vimrc) == 1 then
-  vim.cmd("source " .. config_vimrc)
-  print("source " .. config_vimrc)
-end
+local HOME_VIMRC_IS_PREFERRED = true -- try to load $HOME/.vimrc first
+if vim.g.vscode then
+  require("vscode_neovim/config/vscode_neovim_options")
+else
+  local home_vimrc = vim.fn.expand(vim.fn.expand("$HOME") .. "/" .. (vim.fn.has("win32") == 1 and "_vimrc" or ".vimrc"))
+  local local_vimrc = vim.fn.expand(vim.fn.stdpath("config") .. "/.vimrc")
 
--- python file
-vim.cmd([[
-au BufNewFile,BufRead *.py
-    \ :set
-    \ tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ textwidth=79
-    \ expandtab
-    \ autoindent
-    \ fileformat=unix
-]])
-
--- web
-vim.cmd([[
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ :set
-    \ tabstop=2
-    \ softtabstop=2
-    \ shiftwidth=2
-]])
+  if HOME_VIMRC_IS_PREFERRED == true and vim.fn.filereadable(home_vimrc) == 1 then
+    vim.cmd("source " .. home_vimrc)
+    print("source " .. home_vimrc)
+  elseif vim.fn.filereadable(local_vimrc) == 1 then
+    vim.cmd("source " .. local_vimrc)
+    print("source " .. local_vimrc)
+  else
+    print("failed to source vimrc")
+  end
+end

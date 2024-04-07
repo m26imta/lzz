@@ -1,5 +1,8 @@
+-- vscode-neovim  -  VSCode Neovim Integration
+-- https://github.com/vscode-neovim/vscode-neovim
+
 vim.cmd([[
-""  
+""
 let mapleader = " "
 let maplocalleader = "\\"
 

@@ -18,6 +18,8 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
     },
+    -- merge with lazyvim's config
+    -- change style to underline
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, {
         options = {
@@ -112,8 +114,8 @@ return {
     end,
   },
 
-  -- Remove some keymaps that conflict with my .vimrc
-  -- LSP keymaps
+  -- Remove & change some keymaps that conflict with my vimrc
+  -- LSP keymaps : <c-k> conflict as it is a <UP> key in my vimrc
   {
     "neovim/nvim-lspconfig",
     init = function()
@@ -129,6 +131,8 @@ return {
       }
     end,
   },
+  -- noice
+  -- remove <c-f> as a reservation key in my vimrc, and remove also <c-b> because it is a pair with <c-f>
   {
     "folke/noice.nvim",
     -- remove <c-f>, <c-b>
