@@ -1,6 +1,7 @@
--- python3 -m venv venv
--- source ./venv/bin/activate
--- pip install pynvim ipython jupytext jupyter_client notebook
+-- python3 -m venv venv_molten
+-- source ./venv_molten/bin/activate
+-- pip install pynvim ipython jupytext jupyter_client jupyter ipykernel notebook
+-- python -m ipykernel install --user --name venv_molten
 
 return true
     and {
@@ -83,8 +84,10 @@ return true
           "anuvyklack/hydra.nvim",
         },
         config = function()
-          local nn = require("notebook-navigator")
-          nn.setup({ activate_hydra_keys = "<leader>h" })
+          local nn_ok, nn = pcall(require, "notebook-navigator")
+          if nn_ok then
+            nn.setup({ activate_hydra_keys = "<leader>h" })
+          end
         end,
       },
       {
