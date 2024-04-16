@@ -11,6 +11,7 @@ return true
       {
         "benlubas/molten-nvim",
         dependencies = { "3rd/image.nvim" },
+        tag = "v1.5.2", -- waiting for a stable version
         build = ":UpdateRemotePlugins",
         init = function()
           function MoltenInitPython()
