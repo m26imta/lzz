@@ -3,10 +3,8 @@
 -- Add any additional options here
 
 -- Load vimrc
-local HOME_VIMRC_IS_PREFERRED = true -- try to load $HOME/.vimrc first
-if vim.g.vscode then
-  require("vscode_neovim/config/vscode_neovim_options")
-else
+if not vim.g.vscode then
+  local HOME_VIMRC_IS_PREFERRED = true -- true >> try to load $HOME/.vimrc first
   local home_vimrc = vim.fn.expand(vim.fn.expand("$HOME") .. "/" .. (vim.fn.has("win32") == 1 and "_vimrc" or ".vimrc"))
   local local_vimrc = vim.fn.expand(vim.fn.stdpath("config") .. "/.vimrc")
 

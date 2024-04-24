@@ -5,6 +5,7 @@ vim.cmd([[
 ""
 let mapleader = " "
 let maplocalleader = "\\"
+nnoremap ; :
 
 "" Options
 set timeoutlen=400
