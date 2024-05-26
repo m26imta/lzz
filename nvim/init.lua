@@ -3,6 +3,7 @@ table.insert(LAZY_PLUGIN_SPEC, { "LazyVim/LazyVim" })
 spec("lazyvim.plugins")
 
 if vim.g.vscode then
+  -- config & plugins for vscode
   -- load extras_vscode package
   spec("lazyvim.plugins.extras.vscode")
 
@@ -16,4 +17,6 @@ else
   -- LazyVim
   spec("plugins")
 end
+
 require("config.lazy")
+
