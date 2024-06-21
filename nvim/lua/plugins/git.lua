@@ -54,6 +54,7 @@ return {
     event = "VeryLazy",
   },
   { "lewis6991/gitsigns.nvim",
+    tag = "release",
     event = "VeryLazy",
     config = gitsigns_config,
   },
