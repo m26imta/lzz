@@ -22,7 +22,11 @@ set nolist listchars=tab:→\ ,nbsp:␣,trail:•,space:⋅,extends:▶,precedes
 "" Keymaps
 nnoremap ; :
 inoremap jk <ESC>
-nnoremap <silent> <ESC> :nohl<CR>
+"" fix error 2;2R in vim. <ESC> -> nohl only in neovim
+if has('nvim')
+  nnoremap <silent> <ESC> :nohl<CR>
+endif
+nnoremap <silent> <leader><ESC> :nohl<CR>
 nnoremap <C-x> :q!<CR>
 map <c-f> <Nop>
 map <c-b> <Nop>
@@ -64,16 +68,18 @@ nnoremap ~ :b#<CR>
 " nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 "" Move around text in InsertMode & CommandMode
+noremap! <C-j> <Nop>
+noremap! <C-k> <Nop>
+cnoremap <C-j> <UP>
+cnoremap <C-k> <DOWN>
 noremap! <C-h> <LEFT>
 noremap! <C-l> <RIGHT>
-noremap! <C-j> <DOWN>
-noremap! <C-k> <UP>
 
 "" Better move through wrap line
 noremap j g<DOWN>
 noremap k g<UP>
-inoremap <C-j> <C-o>g<DOWN>
-inoremap <C-k> <C-o>g<UP>
+" inoremap <C-j> <C-o>g<DOWN>
+" inoremap <C-k> <C-o>g<UP>
 
 "" Move around windows
 nnoremap <C-h> <C-w><LEFT>
@@ -206,4 +212,5 @@ if exists("g:neovide")
   let g:neovide_cursor_trail_size = 0.8 "" default = 0.7
   " let g:neovide_cursor_antialiasing = v:false  "" Disabling may fix some cursor visual issues.
 endif
+
 
