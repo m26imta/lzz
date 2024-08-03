@@ -1,4 +1,4 @@
-require("user.launch")
+require("LunarVim.user.launch")
 table.insert(LAZY_PLUGIN_SPEC, { "LazyVim/LazyVim" })
 spec("lazyvim.plugins")
 
@@ -19,4 +19,3 @@ else
 end
 
 require("config.lazy")
-
