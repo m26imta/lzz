@@ -27,7 +27,8 @@ if has('nvim')
   nnoremap <silent> <ESC> :nohl<CR>
 endif
 nnoremap <silent> <leader><ESC> :nohl<CR>
-nnoremap <C-x> :q!<CR>
+"" nnoremap <C-x> :q!<CR>
+nnoremap <C-q> :q!<CR>
 map <c-f> <Nop>
 map <c-b> <Nop>
 map <s-j> <Nop>
@@ -212,5 +213,4 @@ if exists("g:neovide")
   let g:neovide_cursor_trail_size = 0.8 "" default = 0.7
   " let g:neovide_cursor_antialiasing = v:false  "" Disabling may fix some cursor visual issues.
 endif
-
 
