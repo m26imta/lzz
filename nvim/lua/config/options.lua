@@ -5,7 +5,7 @@
 -- Load vimrc
 if not vim.g.vscode then
   local HOME_VIMRC_IS_PREFERRED = true -- true >> try to load $HOME/.vimrc first
-  local home_vimrc = vim.fn.expand(vim.fn.expand("$HOME") .. "/" .. (vim.fn.has("win32") == 1 and "_vimrc" or ".vimrc"))
+  local home_vimrc = vim.fn.expand(vim.fn.expand("$HOME") .. "/" .. ".vimrc")
   local local_vimrc = vim.fn.expand(vim.fn.stdpath("config") .. "/.vimrc")
 
   if HOME_VIMRC_IS_PREFERRED == true and vim.fn.filereadable(home_vimrc) == 1 then
