@@ -1,6 +1,7 @@
 "" _vsvimrc
 "" vsvim for Visual Studio
 "" C:\Users\Admin\_vsvimrc
+""   Settings Reference: https://github.com/VsVim/VsVim/wiki/Settings-Reference
 "" https://github.com/VsVim/VsVim
 "" Enable <C-D> <C-U> <C-R> <C-F> in VsVim settings
 
