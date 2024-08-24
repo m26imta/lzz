@@ -1,6 +1,6 @@
 -- stylua: ignore start
 
-local theme = "moonfly"
+local theme = "ayu"
 -- "name / varient" OR just "name"
 -- "nightfox/carbonfox"  OR just "nightfox"
 
@@ -24,6 +24,7 @@ local themes = {
   { "morhetz/gruvbox",                name = "gruvbox",          varients = { "gruvbox" } },
   { "sainnhe/gruvbox-material",       name = "gruvbox-material", varients = { "gruvbox-material" } },
   { "Mofiqul/dracula.nvim",           name = "dracula",          varients = { "dracula", "dracula-soft" } },
+  { "Shatur/neovim-ayu",              name = "ayu",              varients = { "ayu", "ayu-dark", "ayu-light", "ayu-mirage" } },
   { "EdenEast/nightfox.nvim",         name = "nightfox",         varients = { "nightfox", "dayfox", "dawnfox", "duskfox", "nordfox", "terafox", "carbonfox"} },
   { "folke/tokyonight.nvim",          name = "tokyonight",       varients = { "tokyonight", "tokyonight-day", "tokyonight-moon", "tokyonight-night", "tokyonight-storm" } },
   { "catppuccin/nvim",                name = "catppuccin",       varients = { "catppuccin", "catppuccin-frappe", "catppuccin-latte", "catppuccin-macchiato", "catppuccin-mocha" } },
