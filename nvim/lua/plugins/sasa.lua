@@ -57,8 +57,10 @@ return {
                   require("neo-tree.sources.filesystem").toggle_directory(state, node)
                 elseif node:has_children() then
                   require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
-                elseif node:is_file() then
+                elseif not node:has_children() and require("neo-tree.utils").is_expandable(node) then
+                  state.commands["toggle_node"](state) -- empty folder
                 end
+              elseif node.type == "file" then
               end
             end,
             -- Open file without losing sidebar focus
