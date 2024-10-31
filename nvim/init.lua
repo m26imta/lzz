@@ -1,21 +1,20 @@
-require("LunarVim.user.launch")
-table.insert(LAZY_PLUGIN_SPEC, { "LazyVim/LazyVim" })
-spec("lazyvim.plugins")
+PLUGINS_TBL = {}
+function import(item)
+  table.insert(PLUGINS_TBL, { import = item })
+end
+--
+-- add LazyVim and import its plugins
+table.insert(PLUGINS_TBL, { "LazyVim/LazyVim", import = "lazyvim.plugins" })
 
 if vim.g.vscode then
   -- config & plugins for vscode
-  -- load extras_vscode package
-  spec("lazyvim.plugins.extras.vscode")
-
-  -- vscode_neovim custom plugins
-  spec("vscode_neovim.plugins")
-
-  -- options for vscode_neovim
-  -- require("config.options")
+  -- https://github.com/vscode-neovim/vscode-neovim
+  import("lazyvim.plugins.extras.vscode")
+  import("vscode_neovim.plugins")
   require("vscode_neovim.config.options")
 else
-  -- LazyVim
-  spec("plugins")
+  -- Normal LazyVim in neovim
+  import("plugins")
 end
 
 require("config.lazy")
