@@ -6,7 +6,7 @@ if use_codeium then
   return use_codeium_lazyvim_config_instead
     and {
       -- use codeium.nvim config
-      import = "lazyvim.plugins.extras.coding.codeium"
+      import = "lazyvim.plugins.extras.ai.codeium"
     }
     or {
       -- use codeium.vim
