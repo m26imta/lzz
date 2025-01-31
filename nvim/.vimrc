@@ -4,6 +4,9 @@
 let mapleader = " "
 let maplocalleader = "\\"
 
+color industry
+silent! color habamax
+
 "" Options
 set timeoutlen=300
 set clipboard=unnamed,unnamedplus
@@ -71,10 +74,16 @@ nnoremap ~ :b#<CR>
 "" Move around text in InsertMode & CommandMode
 noremap! <C-j> <Nop>
 noremap! <C-k> <Nop>
-cnoremap <C-j> <UP>
-cnoremap <C-k> <DOWN>
-noremap! <C-h> <LEFT>
-noremap! <C-l> <RIGHT>
+noremap! <C-h> <Nop>
+noremap! <C-l> <Nop>
+" cnoremap <C-j> <DOWN>
+" cnoremap <C-k> <UP>
+" noremap! <C-h> <LEFT>
+" noremap! <C-l> <RIGHT>
+cnoremap <A-j> <DOWN>
+cnoremap <A-k> <UP>
+noremap! <A-h> <LEFT>
+noremap! <A-l> <RIGHT>
 
 "" Better move through wrap line
 noremap j g<DOWN>
@@ -105,26 +114,28 @@ vnoremap <S-l> >gv
 vnoremap <S-j> :m '>+1<cr>gv=gv
 vnoremap <S-k> :m '<-2<cr>gv=gv
 
-nnoremap <A-j> :m .+1<cr>==
-nnoremap <A-k> :m .-2<cr>==
-inoremap <A-j> <ESC>:m .+1<cr>==gi
-inoremap <A-k> <ESC>:m .-2<cr>==gi
-vnoremap <A-j> :m '>+1<cr>gv=gv
-vnoremap <A-k> :m '<-2<cr>gv=gv
-
-nnoremap <A-,> :m .+1<cr>==
-nnoremap <A-.> :m .-2<cr>==
-inoremap <A-,> <ESC>:m .+1<cr>==gi
-inoremap <A-.> <ESC>:m .-2<cr>==gi 
-vnoremap <A-,> :m '>+1<cr>gv=gv
-vnoremap <A-.> :m '<-2<cr>gv=gv
-
-nnoremap <A-h> v<
-nnoremap <A-l> v>
-inoremap <A-h> <ESC>v<gi
-inoremap <A-l> <ESC>v>gi
-vnoremap <A-h> <gv
-vnoremap <A-l> >gv
+""""
+" nnoremap <A-j> :m .+1<cr>==
+" nnoremap <A-k> :m .-2<cr>==
+" inoremap <A-j> <ESC>:m .+1<cr>==gi
+" inoremap <A-k> <ESC>:m .-2<cr>==gi
+" vnoremap <A-j> :m '>+1<cr>gv=gv
+" vnoremap <A-k> :m '<-2<cr>gv=gv
+"
+" nnoremap <A-,> :m .+1<cr>==
+" nnoremap <A-.> :m .-2<cr>==
+" inoremap <A-,> <ESC>:m .+1<cr>==gi
+" inoremap <A-.> <ESC>:m .-2<cr>==gi 
+" vnoremap <A-,> :m '>+1<cr>gv=gv
+" vnoremap <A-.> :m '<-2<cr>gv=gv
+"
+" nnoremap <A-h> v<
+" nnoremap <A-l> v>
+" inoremap <A-h> <ESC>v<gi
+" inoremap <A-l> <ESC>v>gi
+" vnoremap <A-h> <gv
+" vnoremap <A-l> >gv
+""""
 
 "" Ctrl+A to select all
 nnoremap <C-a> maggVG
@@ -214,3 +225,67 @@ if exists("g:neovide")
   " let g:neovide_cursor_antialiasing = v:false  "" Disabling may fix some cursor visual issues.
 endif
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Vim-Plug
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""  Use this for Windows installation
+"" iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | ni $HOME/vimfiles/autoload/plug.vim -Force
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" auto install vim-plug
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("unix") && !has("nvim")
+  let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+  if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+endif
+
+
+if !has("nvim")
+call plug#begin()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" List your plugins here
+
+Plug 'tpope/vim-sensible'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+
+Plug 'nvim-tree/nvim-web-devicons'
+" Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
+
+"" Delete buffers and close files in Vim without closing your windows or messing up your layout.
+Plug 'https://github.com/moll/vim-bbye'
+
+"" ayu theme
+Plug 'Luxed/ayu-vim'    " or other package manager
+"...
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" nerdtree config
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapJumpParent = 'h'
+
+"" bufferline config
+"set termguicolors
+"lua << EOF
+"require"bufferline".setup{}
+"EOF
+
+"" ayu-theme
+set termguicolors       " enable true colors support
+""set background=light    " for light version of theme
+set background=dark     " for either mirage or dark version.
+" NOTE: `background` controls `g:ayucolor`, but `g:ayucolor` doesn't control `background`
+""let g:ayucolor="mirage" " for mirage version of theme
+let g:ayucolor="dark"   " for dark version of theme
+" NOTE: g:ayucolor will default to 'dark' when not set.
+silent! colorscheme ayu
+
+endif
